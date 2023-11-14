@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const server = express();
@@ -114,10 +116,10 @@ server.put('/characters/:id', async (req, res) => {
 server.delete('/characters/:id', async (req, res) => {
   try {
     const connection = await getConnection();
-    const recetaID = req.params.id;
+    const charID = req.params.id;
 
     const query = 'DELETE FROM characters WHERE idcharacters = ?';
-    const [results] = await connection.query(query, [recetaID]);
+    const [results] = await connection.query(query, [charID]);
     connection.end();
     console.log(results);
     res.json({
@@ -147,28 +149,65 @@ server.get('/users', async (req, res) => {
 
 server.post('/users', async (req, res) => {
   try {
+    const { user_name, email, password } = req.body;
+
+    // condicional para verificar si los campos obligatorios están presentes
+    if (!user_name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Por favor, rellena todos los campos obligatorios.',
+      });
+    }
+
     const connection = await getConnection();
     const query =
-      'INSERT INTO users (user_name, email, password) VALUES (?,?,?);';
+      'INSERT INTO users (user_name, email, password) VALUES (?, ?, ?);';
+
+    // encriptar la contraseña usando bcrypt
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const [results] = await connection.query(query, [
-      req.body.user_name,
-      req.body.email,
-      req.body.password,
-      
+      user_name,
+      email,
+      hashedPassword,
     ]);
+
     console.log(results);
     console.log(results.insertId);
+
     connection.end();
-    res.json({
+
+    return res.status(200).json({
       success: true,
       id: results.insertId,
     });
   } catch (error) {
-    res.json({
+    console.error('Error al registrar usuario:', error);
+    return res.status(500).json({
       success: false,
       message:
-        'Compruba que ningún campo este vacío o inténtalo de nuevo más tarde',
+        'Ocurrió un error al intentar registrarse. Por favor, inténtalo de nuevo más tarde.',
+    });
+  }
+});
+
+//endpoint para eliminar un usuario de la base de datos
+server.delete('/users/:id', async (req, res) => {
+  try {
+    const connection = await getConnection();
+    const userID = req.params.id;
+
+    const query = 'DELETE FROM users WHERE idusers = ?';
+    const [results] = await connection.query(query, [userID]);
+    connection.end();
+    console.log(results);
+    res.json({
+      success: true,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: 'No es posible eliminar tu personaje',
     });
   }
 });

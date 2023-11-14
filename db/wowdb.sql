@@ -55,11 +55,10 @@ CREATE TABLE `users` (
   `idusers` int NOT NULL AUTO_INCREMENT,
   `user_name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
+  `password` varchar(120) NOT NULL,
   PRIMARY KEY (`idusers`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  UNIQUE KEY `user_name_UNIQUE` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +67,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Multipolar','arantzag@hotmail.com','pepinillo'),(2,'Buba','bubabu@gmail.com','guabuba12');
+INSERT INTO `users` VALUES (1,'Multipolar','arantzag@hotmail.com','pepinillo'),(2,'Buba','bubabu@gmail.com','guabuba12'),(3,'Maricarmen','carmenmari@maricarmen.com','123554309'),(4,'Maripili','holikiwi@hotmail.com','pili1234'),(7,'Gati','holi@hotmail.com','$2b$10$VeFu5HDqfEQD8QQh9DYGk.QkubxoceRc7yIw8DvrQMWsdZnFHhNAe');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -81,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-14 17:45:05
+-- Dump completed on 2023-11-14 19:06:06
