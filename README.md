@@ -25,7 +25,7 @@ DATABASE=nombre_de_la_DB
 
 ## Uso
 
-1. Ejecuta `npm start` para iniciar el servidor en el puerto 1212 (puedes cambiar el puerto en el archivo `index.js` si es necesario).
+1. Ejecuta `npm run dev` para iniciar el servidor en el puerto 1212 (puedes cambiar el puerto en el archivo `index.js` si es necesario).
 2. Accede a la API a través de las siguientes rutas:
 
 ### Personajes
