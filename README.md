@@ -22,9 +22,6 @@ DBUSER=tu_usuario_DB
 PASS=contraseña_de_DB
 DATABASE=nombre_de_la_DB 
 
-## Configuración de la Base de Datos
-
-Importa el archivo `dump_wow_database.sql` en tu sistema MySQL para obtener la estructura de la base de datos y datos de ejemplo.
 
 ## Uso
 
