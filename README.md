@@ -4,7 +4,7 @@ Este repositorio contiene una API simple creada con Express.js para gestionar pe
 
 ## Estructura de la base de datos
 
-En la carpeta `database_code`, encontrarás un archivo `dump_wow_database.sql` que contiene la estructura de la base de datos y datos de ejemplo para comenzar. Asegúrate de importar este archivo en tu sistema MySQL para tener las tablas y datos necesarios para el funcionamiento de la API.
+En la carpeta `db`, encontrarás un archivo `wowdb.sql` que contiene la estructura de la base de datos y datos de ejemplo para comenzar. Asegúrate de importar este archivo en tu sistema MySQL para tener las tablas y datos necesarios para el funcionamiento de la API.
 
 ## Requisitos
 
