@@ -26,37 +26,45 @@ async function getConnection() {
   console.log(
     `Conexión establecida con la base de datos (identificador=${connection.threadId})`
   );
-
   return connection;
 }
+
 // función para generar token
 const generateToken = (payload) => {
   const token = jwt.sign(payload, 'secreto', { expiresIn: '1h' });
   return token;
 };
 
-//endpoint para mostrar todos los elementos
-server.get('/characters', async (req, res) => {
+//endpoint para mostrar la relación entre usuarios y personajes
+server.get('/', async (req, res) => {
   const connection = await getConnection();
-  const query = 'SELECT * FROM characters';
-  const [results, fields] = await connection.query(query);
-  console.log(results.length);
-  const numOfElements = results.length;
-  connection.end();
-  res.json({ info: { count: numOfElements }, results: results });
-});
-//endpoint para mostrar un único elemento con un id específico
-server.get('/characters/:id', async (req, res) => {
-  const connection = await getConnection();
-  const recetaID = req.params.id;
-  console.log(req.params);
-  const query = 'SELECT * FROM characters WHERE idcharacters = ?';
-  const [results] = await connection.query(query, [recetaID]);
+  const query =
+    'SELECT characters.char_name, characters.race, characters.class, characters.faction, users.user_name FROM characters INNER JOIN users ON idusers = user_id';
+  const [results] = await connection.query(query);
   connection.end();
   res.json(results);
 });
 
-//endpoint para agregar un elemento nuevo con valores específicos
+//endpoint para mostrar todos los personajes
+server.get('/characters', async (req, res) => {
+  const connection = await getConnection();
+  const query = 'SELECT * FROM characters';
+  const [results] = await connection.query(query);
+  connection.end();
+  res.json(results);
+});
+
+//endpoint para mostrar un único personaje con un id específico
+server.get('/characters/:id', async (req, res) => {
+  const connection = await getConnection();
+  const charID = req.params.id;
+  const query = 'SELECT * FROM characters WHERE idcharacters = ?';
+  const [results] = await connection.query(query, [charID]);
+  connection.end();
+  res.json(results);
+});
+
+//endpoint para agregar un personaje nuevo con valores específicos
 server.post('/characters', async (req, res) => {
   try {
     const connection = await getConnection();
@@ -71,8 +79,6 @@ server.post('/characters', async (req, res) => {
       req.body.kingdom,
       req.body.faction,
     ]);
-    console.log(results);
-    console.log(results.insertId);
     connection.end();
     res.json({
       success: true,
@@ -87,12 +93,11 @@ server.post('/characters', async (req, res) => {
   }
 });
 
-//endpoint para hacer cambios en un elemento específico
+//endpoint para hacer cambios en un personaje específico
 server.put('/characters/:id', async (req, res) => {
   try {
     const connection = await getConnection();
     const charID = req.params.id;
-    console.log(req.params);
     const query =
       'UPDATE characters SET race = ?, class = ?, char_name = ?, spec = ?, kingdom = ?, faction = ? WHERE idcharacters = ?;';
     const [results] = await connection.query(query, [
@@ -117,7 +122,7 @@ server.put('/characters/:id', async (req, res) => {
   }
 });
 
-//endpoint para eliminar un elemento específico
+//endpoint para eliminar un personaje específico
 server.delete('/characters/:id', async (req, res) => {
   try {
     const connection = await getConnection();
@@ -126,7 +131,6 @@ server.delete('/characters/:id', async (req, res) => {
     const query = 'DELETE FROM characters WHERE idcharacters = ?';
     const [results] = await connection.query(query, [charID]);
     connection.end();
-    console.log(results);
     res.json({
       success: true,
     });
@@ -139,19 +143,15 @@ server.delete('/characters/:id', async (req, res) => {
 });
 
 //endpoint para mostrar todos los usuarios
-
 server.get('/users', async (req, res) => {
   const connection = await getConnection();
   const query = 'SELECT * FROM users';
-  const [results, fields] = await connection.query(query);
-  console.log(results.length);
-  const numOfElements = results.length;
+  const [results] = await connection.query(query);
   connection.end();
-  res.json({ info: { count: numOfElements }, results: results });
+  res.json(results);
 });
 
 //endpoint para registrar un nuevo usuario
-
 server.post('/users', async (req, res) => {
   try {
     const { user_name, email, password } = req.body;
@@ -180,7 +180,7 @@ server.post('/users', async (req, res) => {
       username: user_name,
       id: results.insertId,
     };
-   
+
     const token = generateToken(userForToken);
     connection.end();
 
@@ -190,7 +190,6 @@ server.post('/users', async (req, res) => {
       id: results.insertId,
     });
   } catch (error) {
-    console.error('Error al registrar usuario:', error);
     return res.status(500).json({
       success: false,
       message:
@@ -200,7 +199,6 @@ server.post('/users', async (req, res) => {
 });
 
 //endpoint para logearse
-
 server.post('/users/login', async (req, res) => {
   const body = req.body;
   const sql = 'SELECT * FROM users WHERE user_name= ?';
@@ -234,7 +232,6 @@ server.delete('/users/:id', async (req, res) => {
     const query = 'DELETE FROM users WHERE idusers = ?';
     const [results] = await connection.query(query, [userID]);
     connection.end();
-    console.log(results);
     res.json({
       success: true,
     });

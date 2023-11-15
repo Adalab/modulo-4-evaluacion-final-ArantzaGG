@@ -58,10 +58,10 @@ CREATE TABLE `users` (
   `idusers` int NOT NULL AUTO_INCREMENT,
   `user_name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `password` varchar(120) NOT NULL,
+  `password` varchar(1024) NOT NULL,
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Multipolar','arantzag@hotmail.com','pepinillo'),(2,'Buba','bubabu@gmail.com','guabuba12'),(3,'Maricarmen','carmenmari@maricarmen.com','123554309'),(7,'Gati','holi@hotmail.com','$2b$10$VeFu5HDqfEQD8QQh9DYGk.QkubxoceRc7yIw8DvrQMWsdZnFHhNAe'),(8,'Lidiuski','marilidi@hotmail.com','$2b$10$8htvxpji6TzwgtwjQk05reW58qkM/lYUhyvUKaKx9U/TlRVtcLVxm');
+INSERT INTO `users` VALUES (1,'Multipolar','arantzag@hotmail.com','pepinillo'),(2,'Buba','bubabu@gmail.com','guabuba12'),(3,'Maricarmen','carmenmari@maricarmen.com','123554309'),(7,'Gati','holi@hotmail.com','$2b$10$VeFu5HDqfEQD8QQh9DYGk.QkubxoceRc7yIw8DvrQMWsdZnFHhNAe'),(8,'Lidiuski','marilidi@hotmail.com','$2b$10$8htvxpji6TzwgtwjQk05reW58qkM/lYUhyvUKaKx9U/TlRVtcLVxm'),(9,'SoyNuevo','unusernuevo@gmail.com','$2b$10$xRKFKKXT6lpYgiB43L5pR.oTf3zfK6nHg2mYP0ifHdpNfkzn7oDTi'),(10,'Miau','miamiau@miau.com','$2b$10$INdel6GTXbr0wP8Z/iMK7OCxkF3bNJnKJExGhjlOwpdU3KL99J.GS');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 10:40:54
+-- Dump completed on 2023-11-15 12:25:19
