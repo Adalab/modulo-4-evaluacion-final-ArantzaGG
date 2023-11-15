@@ -30,7 +30,10 @@ CREATE TABLE `characters` (
   `spec` varchar(45) NOT NULL,
   `kingdom` varchar(45) NOT NULL,
   `faction` varchar(45) NOT NULL,
-  PRIMARY KEY (`idcharacters`)
+  `user_id` int DEFAULT NULL,
+  PRIMARY KEY (`idcharacters`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `characters_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`idusers`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,7 +43,7 @@ CREATE TABLE `characters` (
 
 LOCK TABLES `characters` WRITE;
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
-INSERT INTO `characters` VALUES (1,'Tauren','Druida','Pattronum','Equilibrio','C\'Thun','Horda'),(2,'Elfa de sangre','Cazadora de demonios','Bellatrix','Venganza','C\'Thun','Horda'),(3,'Elfa de sangre','Cazadora','Naginii','Puntería','C\'Thun','Horda'),(4,'Vulpera','Maga','Crookshanks','Fuego','C\'Thun','Horda'),(5,'Dracthyr ','Evocadora','Norbertaa','Devastación','C\'Thun','Horda'),(6,'Huargen','Guerrero','Lunaticco','Protección','C\'Thun','Alianza'),(7,'Tauren Monte Alto','Chamana','Nimphadora','Restauración','C\'Thun','Horda'),(8,'Ciudadana de Kul Tiras','Druida','Miinerva','Feral','C\'Thun','Alianza'),(9,'Humana','Cazadora','Leviosa','Bestias','C\'Thun','Alianza'),(11,'No muerta','Bruja','Leggeremens','Aflicción','Sanguino','Horda');
+INSERT INTO `characters` VALUES (1,'Tauren','Druida','Pattronum','Equilibrio','C\'Thun','Horda',1),(2,'Elfa de sangre','Cazadora de demonios','Bellatrix','Venganza','C\'Thun','Horda',1),(3,'Elfa de sangre','Cazadora','Naginii','Puntería','C\'Thun','Horda',1),(4,'Vulpera','Maga','Crookshanks','Fuego','C\'Thun','Horda',2),(5,'Dracthyr ','Evocadora','Norbertaa','Devastación','C\'Thun','Horda',2),(6,'Huargen','Guerrero','Lunaticco','Protección','C\'Thun','Alianza',1),(7,'Tauren Monte Alto','Chamana','Nimphadora','Restauración','C\'Thun','Horda',8),(8,'Ciudadana de Kul Tiras','Druida','Miinerva','Feral','C\'Thun','Alianza',8),(9,'Humana','Cazadora','Leviosa','Bestias','C\'Thun','Alianza',7),(11,'No muerta','Bruja','Leggeremens','Aflicción','Sanguino','Horda',7);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +61,7 @@ CREATE TABLE `users` (
   `password` varchar(120) NOT NULL,
   PRIMARY KEY (`idusers`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +70,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Multipolar','arantzag@hotmail.com','pepinillo'),(2,'Buba','bubabu@gmail.com','guabuba12'),(3,'Maricarmen','carmenmari@maricarmen.com','123554309'),(4,'Maripili','holikiwi@hotmail.com','pili1234'),(7,'Gati','holi@hotmail.com','$2b$10$VeFu5HDqfEQD8QQh9DYGk.QkubxoceRc7yIw8DvrQMWsdZnFHhNAe');
+INSERT INTO `users` VALUES (1,'Multipolar','arantzag@hotmail.com','pepinillo'),(2,'Buba','bubabu@gmail.com','guabuba12'),(3,'Maricarmen','carmenmari@maricarmen.com','123554309'),(7,'Gati','holi@hotmail.com','$2b$10$VeFu5HDqfEQD8QQh9DYGk.QkubxoceRc7yIw8DvrQMWsdZnFHhNAe'),(8,'Lidiuski','marilidi@hotmail.com','$2b$10$8htvxpji6TzwgtwjQk05reW58qkM/lYUhyvUKaKx9U/TlRVtcLVxm');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-14 19:06:06
+-- Dump completed on 2023-11-15 10:40:54

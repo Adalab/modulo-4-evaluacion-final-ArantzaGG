@@ -29,6 +29,11 @@ async function getConnection() {
 
   return connection;
 }
+// función para generar token
+const generateToken = (payload) => {
+  const token = jwt.sign(payload, 'secreto', { expiresIn: '1h' });
+  return token;
+};
 
 //endpoint para mostrar todos los elementos
 server.get('/characters', async (req, res) => {
@@ -171,14 +176,17 @@ server.post('/users', async (req, res) => {
       email,
       hashedPassword,
     ]);
-
-    console.log(results);
-    console.log(results.insertId);
-
+    const userForToken = {
+      username: user_name,
+      id: results.insertId,
+    };
+   
+    const token = generateToken(userForToken);
     connection.end();
 
     return res.status(200).json({
       success: true,
+      token: token,
       id: results.insertId,
     });
   } catch (error) {
@@ -189,6 +197,32 @@ server.post('/users', async (req, res) => {
         'Ocurrió un error al intentar registrarse. Por favor, inténtalo de nuevo más tarde.',
     });
   }
+});
+
+//endpoint para logearse
+
+server.post('/users/login', async (req, res) => {
+  const body = req.body;
+  const sql = 'SELECT * FROM users WHERE user_name= ?';
+  const connection = await getConnection();
+  const [users] = await connection.query(sql, [body.user_name]);
+  connection.end();
+  const user = users[0];
+  const passwordCorrect =
+    user === null ? false : await bcrypt.compare(body.password, user.password);
+  if (!(user && passwordCorrect)) {
+    return res.status(401).json({
+      error: 'Este usuario no existe, ¡regístrate!',
+    });
+  }
+
+  const userForToken = {
+    username: user.user_name,
+    id: user.idusers,
+  };
+
+  const token = generateToken(userForToken);
+  res.status(200).json({ token, username: user.user_name });
 });
 
 //endpoint para eliminar un usuario de la base de datos
@@ -207,7 +241,7 @@ server.delete('/users/:id', async (req, res) => {
   } catch (error) {
     res.json({
       success: false,
-      message: 'No es posible eliminar tu personaje',
+      message: 'No es posible eliminar este usuario',
     });
   }
 });
