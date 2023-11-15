@@ -41,7 +41,7 @@ DATABASE=nombre_de_la_DB
 
 - **GET `/users`**: Obtiene todos los usuarios almacenados.
 - **POST `/users`**: Registra un nuevo usuario.
-- - **POST `/users/login`**: Loguear con un usuario específico.
+- **POST `/users/login`**: Loguear con un usuario específico.
 - **DELETE `/users/:id`**: Elimina un usuario por su ID.
 
 ## Tecnologías Utilizadas
