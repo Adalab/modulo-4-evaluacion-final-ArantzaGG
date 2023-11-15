@@ -1,4 +1,4 @@
-# API de gestión de personajes y usuarios
+# API de gestión de usuarios de Wow y personajes creados
 
 Este repositorio contiene una API simple creada con Express.js para gestionar personajes y usuarios en una base de datos MySQL.
 
@@ -30,6 +30,7 @@ DATABASE=nombre_de_la_DB
 
 ### Personajes
 
+- **GET `/`**: Obtiene la relación entre personajes y usuarios con algunos datos de cada uno.
 - **GET `/characters`**: Obtiene todos los personajes almacenados.
 - **GET `/characters/:id`**: Obtiene un personaje específico por su ID.
 - **POST `/characters`**: Agrega un nuevo personaje.
@@ -40,6 +41,7 @@ DATABASE=nombre_de_la_DB
 
 - **GET `/users`**: Obtiene todos los usuarios almacenados.
 - **POST `/users`**: Registra un nuevo usuario.
+- - **POST `/users/login`**: Loguear con un usuario específico.
 - **DELETE `/users/:id`**: Elimina un usuario por su ID.
 
 ## Tecnologías Utilizadas
