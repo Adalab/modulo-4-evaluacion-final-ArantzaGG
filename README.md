@@ -13,7 +13,7 @@ En la carpeta `db`, encontrarás un archivo `wowdb.sql` que contiene la estructu
 
 ## Instalación
 
-1. Clona este repositorio en tu máquina local.
+1. Clona este repositorio en tu ordenador.
 2. Ejecuta `npm install` para instalar todas las dependencias necesarias.
 3. Crea un archivo `.env` en la raíz del proyecto con la configuración de tu base de datos:
 
